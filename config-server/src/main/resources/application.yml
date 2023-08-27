@@ -1,0 +1,23 @@
+
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          # specify where is the git repository containing the configuration files using environment variable.
+          # read configuration here: https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#_git_backend
+
+          # NOTE: if you're using local git repository, to run it with docker, you need to mount the git repository directory to docker compose/image
+          uri: ${GIT_REPO_PATH}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI}
+  instance:
+    preferIpAddress: true
