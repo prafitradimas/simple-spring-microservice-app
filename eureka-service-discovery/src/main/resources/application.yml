@@ -13,3 +13,9 @@ eureka:
   client:
     registerWithEureka: false
     fetchRegistry: false
+<<<<<<< HEAD
+=======
+    serviceUrl:
+      # specify where services can discover eureka
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+>>>>>>> feature/no-ref/service-discovery
