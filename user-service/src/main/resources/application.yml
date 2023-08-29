@@ -1,1 +1,8 @@
 
+spring:
+  application:
+    name: user_service
+  profiles:
+    active: ${PROFILE}
+  config:
+    import: ${CONFIG_URI}
