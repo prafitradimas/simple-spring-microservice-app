@@ -2,6 +2,7 @@ package com.github.prafitradimas.user.service.service.impl;
 
 import com.github.prafitradimas.user.service.dto.UserDetailsDto;
 import com.github.prafitradimas.user.service.dto.UserDto;
+import com.github.prafitradimas.user.service.entity.AuthorityEntity;
 import com.github.prafitradimas.user.service.entity.UserDetailsEntity;
 import com.github.prafitradimas.user.service.entity.UserEntity;
 import com.github.prafitradimas.user.service.exception.UserAlreadyExistException;
@@ -24,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -102,6 +104,12 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistException(request.username());
         }
 
+        var authorities = new ArrayList<AuthorityEntity>();
+        authorities.add(new AuthorityEntity("USER_READ"));
+        authorities.add(new AuthorityEntity("USER_READ_DETAILS"));
+        authorities.add(new AuthorityEntity("USER_WRITE"));
+        authorities.add(new AuthorityEntity("USER_WRITE_DETAILS"));
+
         var userDetails = UserDetailsEntity.builder()
             .username(request.username())
             .password(passwordEncoder.encode(request.password()))
@@ -109,6 +117,7 @@ public class UserServiceImpl implements UserService {
             .updateAt(LocalDateTime.now())
             .enabled(true)
             .locked(false)
+            .authorities(authorities)
             .build();
 
         var userEntity = UserEntity.builder()

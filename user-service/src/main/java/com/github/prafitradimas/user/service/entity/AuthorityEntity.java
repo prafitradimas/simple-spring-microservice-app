@@ -14,4 +14,8 @@ public class AuthorityEntity {
     @Id
     private String authority;
 
+    public AuthorityEntity(String authority) {
+        this.authority = authority;
+    }
+
 }
